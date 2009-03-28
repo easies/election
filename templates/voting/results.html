@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}nuACM Election: Election Results{% endblock %}
+
+{% block content %}
+<h3>Election Results</h3>
+<h3>Total Votes: {{total}}</h3>
+<div class='node' style="width:50%;float:left;">
+	<h4>Fall Semester</h4>
+	<table>
+	    <tr>
+		<th>Office</th>
+		<td>Candidate</td>
+		<td style='text-align:center;'>Total Votes</td>
+	    </tr>
+	    {% for r in fall %}
+	    <tr>
+		<th>{{r.office}}</th>
+		<td>{{r.candidate}}</td>
+		<td style='text-align:center;'>{{r.total}}</td>
+	    </tr>
+	    {% endfor %}
+	</table>
+</div>
+<div class='node' style="width:50%;float:right;">
+	<h4>Spring Semester</h4>
+	<table>
+	    <tr>
+		<th>Office</th>
+		<td>Candidate</td>
+		<td style='text-align:center;'>Total Votes</td>
+	    </tr>
+	    {% for r in spring %}
+	    <tr>
+		<th>{{r.office}}</th>
+		<td>{{r.candidate}}</td>
+		<td style='text-align:center;'>{{r.total}}</td>
+	    </tr>
+	    {% endfor %}
+	</table>
+</div>
+{% endblock %}

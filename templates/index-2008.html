@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title%}nuACM Election{% endblock %}
+
+{% block content %}
+    <h1 class='title'>Officer Elections</h1>
+    <div class='node'>
+      <a href='/election/candidates/'>View the candidate profiles</a>
+    </div>
+    <div class='node'>
+      Election results are in! Here are our officers for the next two semesters:
+      <br /><br />
+      <h2>Fall '08</h2>
+      <ul>
+        <li>President: John Mendelewski</li>
+        <li>Vice President: Jeff Dlouhy</li>
+        <li>Treasurer: Jacob Rozin</li>
+        <li>Public Relations: Dan Grover</li>
+        <li>Speaker Series Chairwoman: Melissa Xi</li>
+        <li>Events Chairman: Daniel Bostwick</li>
+        <li>CPU Chairman: Matt Horan</li>
+        <li>Secretary: Roderic Morris</li>
+      </ul>
+      <h2>Spring '09</h2>
+      <ul>
+        <li>President: John Mendelewski</li>
+        <li>Vice President: Ken McGrady</li>
+        <li>Treasurer: Melissa Xi</li>
+        <li>Public Relations: Daniel Bostwick</li>
+        <li>Speaker Series Chariman: Drew Atkin</li>
+        <li>Events Chairman: <i>Open</i></li>
+        <li>CPU Chairman: Gary Katsevman</li>
+        <li>Secretary: <i>Open</i></li>
+      </ul>
+      Please note that we have two open positions in the Spring, and if you are interested in filling them please stop by one of our Monday night board meetings.
+        <!-- Welcome to the nuACM election application. Here you can gather information
+        on front-runners of the next nuACM election, and on election day, vote
+        for you favorite candidate.<br/>
+        <b>Voting starts at 5:00pm on April 10th, and ends 12:00am on April 14th.</b>
+    </div> -->
+    <!-- <div class='node' style='float:left;'>
+        <a style='font-size:20px;' href='/election/candidates/'>Candidates</a><br/>
+        <a style='font-size:20px;' href='/election/voting/'>Vote</a>
+    </div> -->
+    <div class='node' style='text-align:right'>
+        <img src='/election/media/voting.jpg'/>
+    </div>
+    
+{% endblock %}
