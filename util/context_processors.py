@@ -1,4 +1,4 @@
-from acm_election.candidates.models import Candidate
+from ..candidates.models import Candidate
 
 # A custom context processor which takes in a request and retrieves common
 # items from the request used in many templates

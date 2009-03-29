@@ -2,9 +2,9 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from acm_election.util.decorators import election_routing, canVote, isVoteAdmin
-from acm_election.voting.models import VoteForm, Ballot
-from acm_election.views import index as root_index
+from ..util.decorators import election_routing, canVote, isVoteAdmin
+from ..voting.models import VoteForm, Ballot
+from ..views import index as root_index
 
 @election_routing('acm_election.views.index',True)
 @canVote

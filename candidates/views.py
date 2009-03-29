@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from acm_election.candidates.models import Candidate, Office, CandidateForm, OfficeForm
-from acm_election.util.decorators import isSingleSignOn, isVoteAdmin, election_routing, SingleSignOnMismatch
-from acm_election.util.ldapmeta import get_user_metadata
+from ..candidates.models import Candidate, Office, CandidateForm, OfficeForm
+from ..util.decorators import isSingleSignOn, isVoteAdmin, election_routing, SingleSignOnMismatch
+from ..util.ldapmeta import get_user_metadata
 
 def index(request):
     return render_to_response('candidates/index.html',

@@ -1,5 +1,5 @@
-from acm_election.util import decorator
-from acm_election.voting.models import Ballot
+from ..util import decorator
+from ..voting.models import Ballot
 from exceptions import Exception
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
