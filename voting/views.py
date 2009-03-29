@@ -2,9 +2,9 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
-from acm_election.util.decorators import election_routing, canVote, isVoteAdmin
-from acm_election.voting.models import VoteForm, Ballot
-from acm_election.views import index as root_index
+from django.conf import settings
+from models import VoteForm, Ballot
+from .util.decorators import election_routing, canVote, isVoteAdmin
 
 @election_routing('acm_election.views.index',True)
 @canVote
@@ -14,7 +14,7 @@ def index(request):
         if form.is_valid():
             form.save(request.user.username,request.META['REMOTE_ADDR'])
             request.session['messages'] = ["Thank you for voting."] 
-            return HttpResponseRedirect(reverse(root_index))
+            return HttpResponseRedirect(reverse(settings.MODULE+'.views.index'))
     else:
         form = VoteForm()
         wris = [form[x] for x in form.fields if 'wri' in x]

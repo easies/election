@@ -5,7 +5,7 @@
 ## Uncomment the statement 'print >> sys.stderr, func_src'  in _decorate
 ## to understand what is going on.
 
-__all__ = ["decorator", "update_wrapper", "getinfo"]
+__all__ = ['decorator', 'update_wrapper', 'getinfo', 'ldapmeta', 'resizepic']
 
 import inspect, sys
     
