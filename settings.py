@@ -5,7 +5,7 @@ from os.path import normpath, join, dirname, abspath
 ROOT = lambda *base : normpath(join(dirname(__file__), *base)).replace('\\','/')
 MODULE = normpath(abspath(dirname(__file__))).replace('\\','/').split('/')[-1]
 
-DEBUG = False
+DEBUG = False 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -40,17 +40,17 @@ SITE_ID = 1
 USE_I18N = False
 
 # Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
+# Example: '/home/media/media.lawrence.com/'
 MEDIA_ROOT = ROOT('media') + '/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
+# Examples: 'http://media.lawrence.com', 'http://example.com/media/'
 MEDIA_URL = 'http://acm.ccs.neu.edu/election/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
+# Examples: 'http://foo.com/media/', '/media/'.
 ADMIN_MEDIA_PREFIX = '/library/adminmedia/'
 
 # Make this unique, and don't share it with anybody.
@@ -71,10 +71,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.doc.XViewMiddleware',
 )
 
-ROOT_URLCONF = MODULE + '.urls'
+ROOT_URLCONF = MODULE + '.stagedurls'
 
 TEMPLATE_DIRS = (
-   ROOT("templates")
+   ROOT('templates')
 )
 
 INSTALLED_APPS = (
@@ -99,6 +99,9 @@ CAS_SERVER_URL = 'https://vzcgi.ccs.neu.edu/sso/cas/'
 
 AUDIT_LOG = ROOT('audit.log')
 
-TEMPLATE_CONTEXT_PROCESSORS = ( "django.core.context_processors.auth",
-                                "django.core.context_processors.debug",
-                                MODULE + ".util.context_processors.acm_election")
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    MODULE + '.util.context_processors.acm_election'
+)
+
