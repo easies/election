@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
-from django.conf import settings
-from ..util.resizepic import resize_pic, rename_image
+from acm_election import settings
+from acm_election.util.resizepic import resize_pic, rename_image
 from django.core.files import File
 import os
 
