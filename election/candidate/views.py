@@ -104,8 +104,8 @@ def edit_candidate(request, username):
     try:
         c = Candidate.objects.get(user=user)
     except Candidate.DoesNotExist:
-        message.warn(request, 'User %s does not exist. Please create '
-            'profile first.' % username)
+        message.warning(request, 'Candidate %s does not exist. '
+            'Please create the profile first.' % username)
         return HttpResponseRedirect(reverse(add_candidate,
             kwargs={'username': username}))
     if request.method == 'POST':

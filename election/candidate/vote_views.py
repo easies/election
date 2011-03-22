@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from datetime import datetime
 from .models import Ballot
 from .forms import VoteForm
 from .decorators import is_member, has_not_voted, voting_open
@@ -20,7 +22,7 @@ def index(request):
         if form.is_valid():
             form.save(user, request.META['REMOTE_ADDR'])
             messages.info(request, 'Thank you for voting.')
-            return HttpResponseRedirect(reverse('election.candidate.views.index'))
+            return HttpResponseRedirect(reverse('index'))
     else:
         form = VoteForm()
         wris = [form[x] for x in form.fields if 'wri' in x]
@@ -33,6 +35,10 @@ def index(request):
 
 # XXX hide?
 def results(request):
+    if datetime.now() < settings.VOTING_END:
+        messages.info(request, 'Results will be available when '
+            'voting ends on %s' % str(settings.VOTING_END))
+        return HttpResponseRedirect(reverse('index'))
     total_votes = Ballot.objects.count()
     from django.db import connection
     cursor = connection.cursor()
@@ -59,5 +65,5 @@ def results(request):
         else:
             spring.append(data)
     return render_to_response('candidate/vote-results.html',
-        {'spring': spring, 'fall': fall,'total': total_votes},
+        {'spring': spring, 'fall': fall, 'total': total_votes},
         context_instance=RequestContext(request)) 

@@ -39,6 +39,9 @@ def voting_open(f):
         now = datetime.now()
         if start <= now <= end:
             return f(request, *args, **kwargs)
-        messages.warning(request, 'Voting has been closed.')
+        if now > end:
+            messages.warning(request, 'Voting has been closed.')
+        else:
+            messages.warning(request, 'Voting has not been started.')
         return HttpResponseRedirect(reverse(index))
     return wrapper
