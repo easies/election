@@ -67,7 +67,7 @@ def add_candidate(request, username):
                     kwargs={'username': username}))
         except (Candidate.DoesNotExist, User.DoesNotExist):
             pass
-    return render_to_response('candidate/modelform.html',
+    return render_to_response('candidate/model-form.html',
         {'form': form, 'username': username},
         context_instance=RequestContext(request))
 
@@ -116,7 +116,7 @@ def edit_candidate(request, username):
                 kwargs={'username': username}))
     else:
         form = CandidateForm(instance=c)
-    return render_to_response('candidate/modelform.html',
+    return render_to_response('candidate/model-form.html',
         {'form': form, 'username': username},
         context_instance=RequestContext(request))
 
@@ -152,7 +152,7 @@ def add_office(request):
                 return HttpResponseRedirect(reverse(office_index))
     else:
         form = OfficeForm()
-    return render_to_response('candidate/modelform.html', {'form': form},
+    return render_to_response('candidate/model-form.html', {'form': form},
         context_instance=RequestContext(request))
 
 
@@ -196,7 +196,7 @@ def edit_office(request,id):
                 return HttpResponseRedirect(reverse(office_index))
     else:
         form = OfficeForm(instance=o)
-    return render_to_response('candidate/modelform.html', {'form': form},
+    return render_to_response('candidate/model-form.html', {'form': form},
         context_instance=RequestContext(request))
 
 

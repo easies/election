@@ -3,13 +3,12 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Ballot
 from .forms import VoteForm
-# from .util.decorators import election_routing, canVote, isVoteAdmin
 
 
-# @election_routing('acm_election.views.index',True)
-# TODO @canVote
+@login_required
 def index(request):
     user = request.user
     if request.method == 'POST':
@@ -23,13 +22,12 @@ def index(request):
         wris = [form[x] for x in form.fields if 'wri' in x]
         sels = [form[x] for x in form.fields if 'sel' in x]
         matches = [{'sel': x, 'wri': y} for x, y in zip(sels,wris)]
-    return render_to_response('candidate/voteform.html',
+    return render_to_response('candidate/vote-form.html',
         {'pairs': matches},
         context_instance=RequestContext(request))
 
 
-# @election_routing('acm_election.views.index', True)
-# TODO @isVoteAdmin
+# XXX hide?
 def results(request):
     total_votes = Ballot.objects.count()
     from django.db import connection
