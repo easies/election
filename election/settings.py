@@ -1,5 +1,5 @@
 # Django settings for election project.
-
+from datetime import datetime
 import utils
 
 ROOT = utils.root(__file__)
@@ -111,6 +111,9 @@ LDAP_DN = 'ou=people,dc=ccs,dc=neu,dc=edu'
 LDAP_BIND = 'uid=%s,ou=people,dc=ccs,dc=neu,dc=edu'
 
 MEMBER_LIST = ROOT('memberlist.txt')
+
+VOTING_START = datetime(2011, 4, 5, 17, 0)
+VOTING_END = datetime(2011, 4, 12, 17, 0)
 
 try:
     from local_settings import *

@@ -67,3 +67,11 @@ a.indent {
 #main {
   font-size: 13px;
 }
+
+.left {
+  float: left;
+}
+
+.text-right {
+  text-align: right;
+}

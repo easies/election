@@ -2,39 +2,19 @@
 <!--/* vim: set filetype=htmldjango : */-->
 <html>
 <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="http://acm.ccs.neu.edu/files/nuacmtheme_favicon.ico" type="image/x-icon">
   <title>{% block title %}nuACM Elections{% endblock %}</title>
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--  <link rel="shortcut icon" href="/files/nuacmtheme_favicon.ico" type="image/x-icon" />-->
-  <style type="text/css" media="all"><!--
-  @import "http://acm.ccs.neu.edu/modules/event/event.css";
-  @import "http://acm.ccs.neu.edu/modules/node/node.css";
-  @import "http://acm.ccs.neu.edu/modules/system/defaults.css";
-  @import "http://acm.ccs.neu.edu/modules/system/system.css";
-  @import "http://acm.ccs.neu.edu/modules/user/user.css";
-  @import "http://acm.ccs.neu.edu/themes/nuacmtheme/style.css";
-  @import "http://acm.ccs.neu.edu/themes/nuacmtheme/niftyCorners.css";
-  --></style>
-  <!-- Load jQuery -->
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    google.load("jquery", "1");
-  </script>
-  <script type="text/javascript" src="{% url media "js/acm.js" %}"></script>
-  <script type="text/javascript" src="http://acm.ccs.neu.edu/themes/nuacmtheme/niftycube.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      Nifty("div#pagebody", "big");
-      Nifty("div.sidebar-module");
-      Nifty("div#front-about");
-      Nifty("div#front-events");
-      Nifty("div#front-news");
-      Nifty("div#request");
-    });
-  </script>
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/modules/event/event.css">
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/modules/node/node.css">
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/modules/system/defaults.css">
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/modules/system/system.css">
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/modules/user/user.css">
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/themes/nuacmtheme/style.css">
+  <link rel="stylesheet" href="http://acm.ccs.neu.edu/themes/nuacmtheme/niftyCorners.css">
   <link rel="stylesheet" href="{% url media "styles/election.css" %}" type="text/css">
-  {% block scripts %}{% endblock %}
   {% block styles %}{% endblock %}
+  {% block scripts-head %}{% endblock %}
 </head>
 <body>
   <p></p>
@@ -84,6 +64,7 @@
             {% if user %}
             <div class="sidebar-module">
               <div class="module-pad">
+                <!-- FIXME duplicate ID -->
                 <ul id="acm-nav">
                 {% block usernav %}{% endblock %}
                 {% if user.is_authenticated %}
@@ -135,5 +116,23 @@
     </div>
   </div>
   <div id="footer"></div>
+  <!-- Load jQuery -->
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1");
+  </script>
+  <script type="text/javascript" src="{% url media "js/acm.js" %}"></script>
+  <script type="text/javascript" src="http://acm.ccs.neu.edu/themes/nuacmtheme/niftycube.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Nifty("div#pagebody", "big");
+      Nifty("div.sidebar-module");
+      Nifty("div#front-about");
+      Nifty("div#front-events");
+      Nifty("div#front-news");
+      Nifty("div#request");
+    });
+  </script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

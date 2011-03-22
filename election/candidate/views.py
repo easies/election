@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.conf import settings
 from .models import Candidate, Office
 from .forms import CandidateForm, OfficeForm
 from .utils import get_user_metadata
@@ -15,7 +16,7 @@ def candidate_index(request):
     return render_to_response('candidate/candidate-index.html',
         {'offices_fall': Office.objects.filter(semester=1),
          'offices_spr': Office.objects.filter(semester=2),
-         'orphans' : Candidate.objects.filter(offices__isnull=True)},
+         'orphans': Candidate.objects.filter(offices__isnull=True)},
         context_instance=RequestContext(request))
 
 
@@ -208,5 +209,7 @@ def index(request):
     return render_to_response('candidate/index.html',
         {'election_year': time.strftime('%Y'),
          'election_open': True,
-         'server_mesg': temp},
+         'server_mesg': temp,
+         'start_date': settings.VOTING_START,
+         'end_date': settings.VOTING_END},
         context_instance=RequestContext(request))

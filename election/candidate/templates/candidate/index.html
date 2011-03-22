@@ -1,35 +1,38 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title%}nuACM Election{% endblock %}
 
 {% block content %}
 
-<h1 class='title'>Officer Elections</h1>
-<!--<div class='node'>
-  <a href='/election/candidates/'>View the candidate profiles</a>
+<h1 class="title">Officer Elections</h1>
+<!--<div class="node">
+  <a href="/election/candidates/">View the candidate profiles</a>
 </div>-->
-  <p>
-    Welcome to the nuACM election application. Here you can gather information
-    on front-runners of the next nuACM election, and on election day, vote
-    for you favorite candidate.<br/><br/>
-    If you wish to run for an office in ACM, please log into our website using
-    your CCIS credentials. After doing so, you will see a link where you logged
-    in for Becoming a Candidate. Fill out your personal information, including
-    choosing a small profile photo and blurb about yourself, as well as choosing
-    the office(s) you wish to run for, and submit the form. From then on, you may
-    access this profile by logging into this site and clicking the Edit my Profile
-    link where you log in.<br/><br/>
-    <b>FIXME Voting starts at 7:00pm on March 30th, and ends 7:00pm on April 3th.</b>
-  </p>
-</div>
-<div class='node' style='float:left;'>
-  Current running <a style='font-size:20px;'
+<p>
+  Welcome to the nuACM election application. Here you can gather information
+  on front-runners of the next nuACM election, and on election day, vote
+  for you favorite candidate.<br/><br/>
+  If you wish to run for an office in ACM, please log into our website using
+  your CCIS credentials. After doing so, you will see a link where you logged
+  in for Becoming a Candidate. Fill out your personal information, including
+  choosing a small profile photo and blurb about yourself, as well as choosing
+  the office(s) you wish to run for, and submit the form. From then on, you may
+  access this profile by logging into this site and clicking the Edit my Profile
+  link where you log in.<br/><br/>
+  <!-- FIXME -->
+  <strong>
+    Voting starts at {{ start_date|date:"P \\o\\n F jS" }}
+    and ends {{ end_date|date:"P \\o\\n F jS" }}
+  </strong>
+</p>
+<div class="node left">
+  Current running <a style="font-size:20px;"
     href="{% url candidate-index %}">Candidates</a><br/>
-  When polls open, you can <a style='font-size:20px;'
+  When polls open, you can <a style="font-size:20px;"
     href="{% url vote-index %}">Vote</a>
 </div>
-<div class='node' style='text-align:right'>
-  <img src='{% url media "voting.jpg" %}'/>
+<div class="node text-right">
+  <img src="{% url media "voting.jpg" %}" alt="voting">
 </div>
     
 {% endblock %}
