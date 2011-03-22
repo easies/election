@@ -3,13 +3,14 @@
 {% block title%}nuACM Elections: Candidates{% endblock %}
 
 {% block scripts %}
-<link href='{% url media "styles/election.css" %}' rel='stylesheet'
-  type='text/css'/>
 <script type="text/javascript">
-    a = function(){
-        Nifty('div#desc','big,fixed-height');
-    }
-    on_load.add(a);
+$(function() {
+  Nifty('div#desc', 'big,fixed-height');
+  $("a.office").click(function(e) {
+    e.preventDefault();
+    office_dialog(this, this.href);
+  });
+});
 </script>
 {% endblock %}
 

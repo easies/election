@@ -1,14 +1,69 @@
-    #info { width:400px; }
-    #office_info {  display:none; background-color:#E2EBF5;
-                    width:300px;
-                    position:absolute;left:10px;
-                    border:1px solid black; padding:10px;
-    }
-    #title  {   color:#333333;  font-weight:bold;
-                font-size:24px;
-    }
-    #desc   {   background-color:white;padding:10px;
-                margin-top:10px; position:relative;
-    }
-    #desc_in {  }
-    #close  {   position:absolute; text-decoration:none; right: 10px; top: 5px;}
+#info {
+  width: 400px;
+}
+#office_info {
+  display: none;
+  background-color: #E2EBF5;
+  width: 300px;
+  position: absolute;
+  left: 10px;
+  border: 1px solid black;
+  padding: 10px;
+}
+#offices {
+  width: 100%;
+}
+#offices th {
+  width:80%;
+}
+#offices td {
+  text-align: center;
+}
+
+#title {
+  color:#333333;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#desc {
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  position: relative;
+}
+#desc_in {}
+#close {
+  position: absolute;
+  text-decoration: none;
+  right: 10px;
+  top: 5px;
+}
+#cont {
+  position: relative;
+  min-height:320px;
+}
+#profile {
+  width: 200px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+#server-messages {
+  border: 1px solid #FF1F1F;
+  color: #FF1F1F;
+  background-color: #FF9999;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 3px;
+}
+#server-messages ul {
+  padding: 3px 0px;
+  margin: 0px;
+}
+a.indent {
+  margin-left: 30px;
+}
+#main {
+  font-size: 13px;
+}

@@ -1,184 +1,139 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <!--/* vim: set filetype=htmldjango : */-->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-  <head>
-    <title>
-      {% block title %}nuACM Elections{% endblock %}
-    </title>
-    <meta http-equiv="Content-Style-Type" content="text/css" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="/files/nuacmtheme_favicon.ico" type="image/x-icon" />
-    <style type="text/css" media="all">
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/modules/event/event.css";
-    /*]]>*/
-    </style>
-    <style type="text/css" media="all">
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/modules/node/node.css";
-    /*]]>*/
-    </style>
-    <style type="text/css" media="all">
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/modules/system/defaults.css";
-    /*]]>*/
-    </style>
-    <style type="text/css" media="all">
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/modules/system/system.css";
-    /*]]>*/
-    </style>
-    <style type="text/css" media="all">
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/modules/user/user.css";
-    /*]]>*/
-    </style>
-    <style type="text/css" media="all">
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/themes/nuacmtheme/style.css";
-    /*]]>*/
-/*<![CDATA[*/
-    @import "http://acm.ccs.neu.edu/themes/nuacmtheme/niftyCorners.css";
-    /*]]>*/
-    </style>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("jquery", "1");
-    </script>
-    <script type="text/javascript" src="{% url media "js/acm.js" %}"></script>
-    <script type="text/javascript" src="http://acm.ccs.neu.edu/themes/nuacmtheme/niftycube.js"></script>
-    <script type="text/javascript">
-        cornerOnLoad = function(){
-            Nifty("div#pagebody","big");
-            Nifty("div.sidebar-module");
-            Nifty("div#front-about");
-            Nifty("div#front-events");
-            Nifty("div#front-news");
-            Nifty("div#request");
-        }
-        on_load.add(cornerOnLoad);
-    </script>
-    <style>
-        #server-messages {
-            border:             1px solid #FF1F1F;
-            color:              #FF1F1F;
-            background-color:   #FF9999;
-            margin-bottom:      10px;
-            text-align:         center;
-            padding:            3px;
-        }
-        #server-messages ul {
-            padding:3px 0px;
-            margin: 0px;
-        }
-        a.indent {
-            margin-left: 30px;
-        }
-        #main { font-size:13px; }
-    </style>
-    {% block scripts %}{% endblock %}
-  </head>
-  <body onload="on_load()">
-    <p>
-      {% block css %}{% endblock %}
-    </p>
-    <div id="page">
-      <div id="pagebody">
-        <table id="layout-table">
-          <tr>
-            <td id="left-sidebar">
-              <div class="sidebar-module">
-                <div class="module-pad">
-                  <ul id="acm-nav">
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/home.png" alt="" /> <a href="/">Home</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/about.png" alt="" /> <a href="/about">About Us</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/news.png" alt="" /> <a href="/news">News</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/calendar.png" alt="" /> <a href="/calendar">Calendar</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/library.png" alt="" /> <a href="http://acm.ccs.neu.edu/library">Library</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/officers.png" alt="" /> <a href="/election/" class="active">Election</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/video.png" alt="" /> <a href="/videos">Videos</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/officers.png" alt="" /> <a href="/officers">Officers</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="" /> <a href="/members">Members</a>
-                    </li>
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/contact.png" alt="" /> <a href="/contact">Contact Us</a>
-                    </li>
-                  </ul>
-                </div>
-              </div><br />
-              
-              {% if user %}
-              <div class="sidebar-module">
-                <div class="module-pad">
-                  <ul id="acm-nav">
-                  {% block usernav %}{% endblock %}
-                  {% if user.is_authenticated %}
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="" />
-                      <a href="{% url candidate-view user %}">{{ user }}</a>
-                    </li>
-                  {% if user.candidate %}
-                    <li> 
-                      <a class="indent" href="{% url candidate-edit user %}">Edit Your Profile</a>
-                    </li>
-                  {% else %}
-                    <li>
-                      <a class="indent" href="{% url candidate-add user %}">Become a Candidate</a>
-                    </li>
-                  {% endif %}
-                    <li>
-                      <!-- FIXME -->
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt=""/> <a href="{% url logout %}">Log out</a>
-                    </li>
-                  {% else %}
-                      <li>
-                        <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt=""/> <a href="{% url login %}">Log in</a>
-                      </li>
-                  {% endif %}
-                  </ul>
-                </div>
-              </div><br />
-              {% endif %}
-              
-            </td>
-            <td id="main-content">
-              <div id="main">
-                {% if messages %}
-                <div id="server-messages">
-                    <ul>
-                    {% for message in messages %}
-                        <li>{{ message|safe }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-                <!-- BEGIN DJANGO RELATED CODE -->
-                {% block content %}{% endblock %} 
-                <!-- END DJANGO RELATED CODE -->
+<html>
+<head>
+  <title>{% block title %}nuACM Elections{% endblock %}</title>
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--  <link rel="shortcut icon" href="/files/nuacmtheme_favicon.ico" type="image/x-icon" />-->
+  <style type="text/css" media="all"><!--
+  @import "http://acm.ccs.neu.edu/modules/event/event.css";
+  @import "http://acm.ccs.neu.edu/modules/node/node.css";
+  @import "http://acm.ccs.neu.edu/modules/system/defaults.css";
+  @import "http://acm.ccs.neu.edu/modules/system/system.css";
+  @import "http://acm.ccs.neu.edu/modules/user/user.css";
+  @import "http://acm.ccs.neu.edu/themes/nuacmtheme/style.css";
+  @import "http://acm.ccs.neu.edu/themes/nuacmtheme/niftyCorners.css";
+  --></style>
+  <!-- Load jQuery -->
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1");
+  </script>
+  <script type="text/javascript" src="{% url media "js/acm.js" %}"></script>
+  <script type="text/javascript" src="http://acm.ccs.neu.edu/themes/nuacmtheme/niftycube.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Nifty("div#pagebody", "big");
+      Nifty("div.sidebar-module");
+      Nifty("div#front-about");
+      Nifty("div#front-events");
+      Nifty("div#front-news");
+      Nifty("div#request");
+    });
+  </script>
+  <link rel="stylesheet" href="{% url media "styles/election.css" %}" type="text/css">
+  {% block scripts %}{% endblock %}
+  {% block styles %}{% endblock %}
+</head>
+<body>
+  <p></p>
+  <div id="page">
+    <div id="pagebody">
+      <table id="layout-table">
+        <tr>
+          <td id="left-sidebar">
+            <div class="sidebar-module">
+              <div class="module-pad">
+                <nav>
+                <ul id="acm-nav">
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/home.png" alt="" /> <a href="/">Home</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/about.png" alt="" /> <a href="/about">About Us</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/news.png" alt="" /> <a href="/news">News</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/calendar.png" alt="" /> <a href="/calendar">Calendar</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/library.png" alt="" /> <a href="http://acm.ccs.neu.edu/library">Library</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/officers.png" alt="" /> <a href="/election/" class="active">Election</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/video.png" alt="" /> <a href="/videos">Videos</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/officers.png" alt="" /> <a href="/officers">Officers</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="" /> <a href="/members">Members</a>
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/contact.png" alt="" /> <a href="/contact">Contact Us</a>
+                  </li>
+                </ul>
+                </nav>
               </div>
-            </td>
-          </tr>
-        </table>
-      </div>
+            </div>
+            {% if user %}
+            <div class="sidebar-module">
+              <div class="module-pad">
+                <ul id="acm-nav">
+                {% block usernav %}{% endblock %}
+                {% if user.is_authenticated %}
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="" />
+                    <a href="{% url candidate-view user %}">{{ user }}</a>
+                  </li>
+                {% if user.candidate %}
+                  <li>
+                    <a class="indent" href="{% url candidate-edit user %}">Edit Your Profile</a>
+                  </li>
+                {% else %}
+                  <li>
+                    <a class="indent" href="{% url candidate-add user %}">Become a Candidate</a>
+                  </li>
+                {% endif %}
+                  <li>
+                    <!-- FIXME -->
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt=""/> <a href="{% url logout %}">Log out</a>
+                  </li>
+                {% else %}
+                    <li>
+                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt=""/> <a href="{% url login %}">Log in</a>
+                    </li>
+                {% endif %}
+                </ul>
+              </div>
+            </div>
+            {% endif %}
+          </td>
+          <td id="main-content">
+            <div id="main">
+              {% if messages %}
+              <div id="server-messages">
+                  <ul>
+                  {% for message in messages %}
+                      <li>{{ message|safe }}</li>
+                  {% endfor %}
+                  </ul>
+              </div>
+              {% endif %}
+              <!-- BEGIN DJANGO RELATED CODE -->
+              {% block content %}{% endblock %}
+              <!-- END DJANGO RELATED CODE -->
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
-    <div id="footer"></div>
-  </body>
+  </div>
+  <div id="footer"></div>
+</body>
 </html>
