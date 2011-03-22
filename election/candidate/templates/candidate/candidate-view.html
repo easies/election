@@ -9,7 +9,7 @@ $(function () {
   Nifty("div#desc", "big,fixed-height");
   $("a.office").click(function(e) {
     e.preventDefault();
-    office_dialog(this, this.href);
+    office_dialog(this, this.href + "json/");
   });
 });
 </script>
@@ -22,7 +22,7 @@ $(function () {
   {% if candidate.offices.all %}
     <h5>Running for: </h5>
     {% for o in candidate.offices.all %}
-      <a class="office" href="{% url json-office-get o.pk %}"
+      <a class="office" href="{% url office-view o.pk %}"
         >{{ o.full_title }}</a>{% if not forloop.last %},{% endif %}
     {% endfor %}
   {% else %}

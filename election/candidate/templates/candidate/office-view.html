@@ -1,2 +1,10 @@
-<span id="office_title">{{ office.title }}</span><br/>
-<span id="office_desc">{{ office.desc|safe }}</span>
+{% extends "base.html" %}
+
+{% block title %}nuACM Elections: {{ office.full_title }}{% endblock %}
+
+{% block content %}
+<h1 class="title">{{ office.full_title }}</h1>
+<div class="node">
+  {{ office.description|safe }}
+</div>
+{% endblock %}

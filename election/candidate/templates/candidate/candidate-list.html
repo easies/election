@@ -2,7 +2,7 @@
   <div>
     <!-- FIXME -->
     <strong><a class="office"
-      href="{% url json-office-get o.pk %}">{{ o.full_title }}</a></strong>
+      href="{% url office-view o.pk %}">{{ o.full_title }}</a></strong>
     {% if not o.candidates.all %}
       <em>No candidates currently</em>
     {% else %}

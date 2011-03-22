@@ -1,15 +1,14 @@
 import time
 from django.shortcuts import render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Candidate, Office
 from .forms import CandidateForm, OfficeForm
 from .utils import get_user_metadata
-# from .util.decorators import isSingleSignOn, isVoteAdmin, election_routing, SingleSignOnMismatch
 
 
 def candidate_index(request):
@@ -32,7 +31,6 @@ def get_candidate(request, username):
         context_instance=RequestContext(request))
 
 
-# @election_routing('acm_election.candidates.views.index',True)
 @login_required
 def add_candidate(request, username):
     user = request.user
@@ -67,24 +65,22 @@ def add_candidate(request, username):
                     % username)
                 return HttpResponseRedirect(reverse(get_candidate,
                     kwargs={'username': username}))
-        except User.DoesNotExist:
+        except (Candidate.DoesNotExist, User.DoesNotExist):
             pass
-        except Candidate.DoesNotExist:
-            pass
-            # TODO
-#            data = get_user_metadata(username)
-#            data.update({ 'username' : username })
-#            form = CandidateForm(data)
     return render_to_response('candidate/modelform.html',
         {'form': form, 'username': username},
         context_instance=RequestContext(request))
 
-# @election_routing('acm_election.candidates.views.index',True)
-# TODO @isVoteAdmin
+
+@login_required
 def remove_candidate(request, username):
+    user = request.user
+    if not (user.username == username or user.is_staff):
+        return HttpResponseForbidden()
     try:
-        c = Candidate.objects.get(username=username)
-    except Candidate.DoesNotExist:
+        u = User.objects.get(username=username)
+        c = Candidate.objects.get(user=u)
+    except (Candidate.DoesNotExist, User.DoesNotExist):
         messages.warning(request, 'User %s does not exist.' % username)
         return HttpResponseRedirect(reverse(index))
     if 'confirm-delete' in request.GET:
@@ -92,8 +88,6 @@ def remove_candidate(request, username):
         messages.warning(request, 'Profile for %s deleted.' % username)
         return HttpResponseRedirect(reverse(index))
     else:
-        message = """Are you sure that you want to delete the profile for %s?
-                     <a href='%s'>Confirm</a>"""
         messages.warning(request, 'Are you sure that you want to delete '
             'the profile for %s <a href="%s?confirm-delete">Confirm</a>'
             % (username, reverse(remove_candidate,
@@ -102,10 +96,11 @@ def remove_candidate(request, username):
             kwargs={'username': username}))
 
 
-# @election_routing('acm_election.candidates.views.index',True)
-# TODO @isSingleSignOn
+@login_required
 def edit_candidate(request, username):
     user = request.user
+    if not (user.username == username or user.is_staff):
+        return HttpResponseForbidden()
     try:
         c = Candidate.objects.get(user=user)
     except Candidate.DoesNotExist:
@@ -130,22 +125,19 @@ def get_office(request, id):
     try:
         o = Office.objects.get(pk=id)
     except Office.DoesNotExist:
-        messages.warning(request, 'Office %s does not exist.' % id)
-        return HttpResponseRedirect(reverse(index))
+        raise Http404
     return render_to_response('candidate/office-view.html', {'office': o},
         context_instance=RequestContext(request))
 
 
-# @election_routing('acm_election.candidates.views.index',True)
-# TODO @isVoteAdmin
+@user_passes_test(lambda u: u.is_staff)
 def office_index(request):
     return render_to_response('candidate/office-index.html',
         {'offices' : Office.objects.all()},
         context_instance=RequestContext(request))
 
 
-# @election_routing('acm_election.candidates.views.index',True)
-# TODO @isVoteAdmin
+@user_passes_test(lambda u: u.is_staff)
 def add_office(request):
     if request.method == 'POST':
         form = OfficeForm(request.POST)
@@ -163,8 +155,8 @@ def add_office(request):
     return render_to_response('candidate/modelform.html', {'form': form},
         context_instance=RequestContext(request))
 
-# @election_routing('acm_election.candidates.views.index',True)
-# TODO @isVoteAdmin
+
+@user_passes_test(lambda u: u.is_staff)
 def remove_office(request, id):
     try:
         o = Office.objects.get(pk=id)
@@ -182,8 +174,8 @@ def remove_office(request, id):
             (o.title, reverse(remove_office, kwargs={'id': id})))
         return HttpResponseRedirect(reverse(office_index))
 
-# @election_routing('acm_election.candidates.views.index',True)
-# TODO @isVoteAdmin
+
+@user_passes_test(lambda u: u.is_staff)
 def edit_office(request,id):
     try:
         o = Office.objects.get(pk=id)
