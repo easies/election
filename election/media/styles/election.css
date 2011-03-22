@@ -75,3 +75,9 @@ a.indent {
 .text-right {
   text-align: right;
 }
+
+dl#login-form dt {
+  width: 6em;
+  float: left;
+  clear: both;
+}
