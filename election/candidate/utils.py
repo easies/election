@@ -23,3 +23,8 @@ def get_user_metadata(username):
             'first_name': first_name,
             'last_name': last_name
         }
+
+
+def get_members():
+    with open(settings.MEMBER_LIST) as f:
+        return [x.strip() for x in f.readlines()]

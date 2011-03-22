@@ -107,7 +107,7 @@ class Vote(models.Model):
 
 
 class Ballot(models.Model):
-    voter = models.ForeignKey(User, related_name='ballot', unique=True)
+    voter = models.OneToOneField(User, related_name='ballot')
     voted_at = models.DateTimeField(auto_now_add=True)
     ip = models.IPAddressField()
 

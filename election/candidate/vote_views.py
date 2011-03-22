@@ -6,9 +6,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Ballot
 from .forms import VoteForm
+from .decorators import is_member, has_not_voted
 
 
 @login_required
+@is_member
+@has_not_voted
 def index(request):
     user = request.user
     if request.method == 'POST':

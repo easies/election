@@ -110,6 +110,8 @@ LDAP_URI = 'ldap://cluster.ldap.ccs.neu.edu'
 LDAP_DN = 'ou=people,dc=ccs,dc=neu,dc=edu'
 LDAP_BIND = 'uid=%s,ou=people,dc=ccs,dc=neu,dc=edu'
 
+MEMBER_LIST = ROOT('memberlist.txt')
+
 try:
     from local_settings import *
 except ImportError:

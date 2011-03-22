@@ -41,7 +41,6 @@ def add_candidate(request, username):
         if username_matches:
             c = Candidate(user=user)
         else:
-            # FIXME find the user via ldap.
             userinfo = get_user_metadata(username)
             if not userinfo:
                 raise Exception('Unknown user')
