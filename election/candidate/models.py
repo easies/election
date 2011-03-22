@@ -61,7 +61,7 @@ class Candidate(models.Model):
                 cleanup = True
         if cleanup:
             self._cleanup(src)
-            self._cleanup(dst_temp_root)
+            self._cleanup(dst_temp_full)
 
     @staticmethod
     def _cleanup(f):
