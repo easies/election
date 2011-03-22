@@ -16,7 +16,7 @@ def candidate_index(request):
     return render_to_response('candidate/candidate-index.html',
         {'offices_fall': Office.objects.filter(semester=1),
          'offices_spr': Office.objects.filter(semester=2),
-         'orphens' : Candidate.objects.filter(offices__isnull=True)},
+         'orphans' : Candidate.objects.filter(offices__isnull=True)},
         context_instance=RequestContext(request))
 
 

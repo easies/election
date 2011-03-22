@@ -55,14 +55,14 @@ $(function() {
 {% endwith %}
 </div>
 
-{% if orphens %}
+{% if orphans %}
 <div class='node' style='clear:both;'>
   <strong>Candidates who have not selected offices</strong>:
   <p>
     <ul>
-    {% for c in orphens %}
+    {% for c in orphans %}
       <li>
-        <a href='{% url candidate-view user %}'>{{ c.fullname }}</a>
+        <a href='{% url candidate-view user %}'>{{ c.full_name }}</a>
       </li>
     {% endfor %}
     </ul>

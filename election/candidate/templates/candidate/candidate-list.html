@@ -8,8 +8,8 @@
     {% else %}
       <ul>
       {% for c in o.candidates.all %}
-        <li><a href="{% url candidate-view c.username %}">{{ c }}</a></li>
-      {% endfor%}
+        <li><a href="{% url candidate-view c.username %}">{{ c.full_name }}</a></li>
+      {% endfor %}
       </ul>
     {% endif %}
   </div>
