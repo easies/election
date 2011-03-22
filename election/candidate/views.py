@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Candidate, Office
 from .forms import CandidateForm, OfficeForm
+from .utils import get_user_metadata
 # from .util.decorators import isSingleSignOn, isVoteAdmin, election_routing, SingleSignOnMismatch
-# from .util.ldapmeta import get_user_metadata
 
 
 def candidate_index(request):
@@ -44,7 +44,13 @@ def add_candidate(request, username):
             c = Candidate(user=user)
         else:
             # FIXME find the user via ldap.
+            userinfo = get_user_metadata(username)
+            if not userinfo:
+                raise Exception('Unknown user')
             other, created = User.objects.get_or_create(username=username)
+            other.email = userinfo['email']
+            other.first_name = userinfo['first_name']
+            other.last_name = userinfo['last_name']
             other.save()
             c = Candidate(user=other)
         form = CandidateForm(request.POST, request.FILES, instance=c)
@@ -136,6 +142,7 @@ def office_index(request):
     return render_to_response('candidate/office-index.html',
         {'offices' : Office.objects.all()},
         context_instance=RequestContext(request))
+
 
 # @election_routing('acm_election.candidates.views.index',True)
 # TODO @isVoteAdmin

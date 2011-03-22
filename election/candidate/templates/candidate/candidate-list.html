@@ -1,7 +1,7 @@
 {% for o in offices %}
   <div>
     <!-- FIXME -->
-    <strong><a class='office' onclick="OfficeDesc(this,'{{o.pk}}');return false;" href=''>{{ o.full_title }}</a></strong>
+    <strong><a class='office' onclick="OfficeDesc(this,'{{ o.pk }}');return false;" href=''>{{ o.full_title }}</a></strong>
     {% if not o.candidates.all %}
       <em>No candidates currently</em>
     {% else %}

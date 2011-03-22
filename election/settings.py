@@ -102,6 +102,9 @@ INSTALLED_APPS = (
     MODULE + '.candidate',
 )
 
+LDAP_URI = 'ldap://cluster.ldap.ccs.neu.edu'
+LDAP_DN = 'ou=people,dc=ccs,dc=neu,dc=edu'
+
 try:
     from local_settings import *
 except ImportError:

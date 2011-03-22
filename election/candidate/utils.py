@@ -1,20 +1,25 @@
-import os
-from PIL import Image
+import ldap
+from django.conf import settings
 
 
-def resize_pic(src, dst, size):
-    try:
-        image = Image.open(src)
-        image.thumbnail(size, Image.ANTIALIAS)
-        image.save(dst)
-        os.chmod(dst, 0770)
-    except:
-        # XXX close?
-        return False 
-    return True
-
-
-def rename_image(src, username):
-    file_ext = os.path.splitext(src)[1].lower().replace('jpg', 'jpeg')
-    dst = 'candidate_profiles/%s%s' % (username, file_ext)
-    return dst
+def get_user_metadata(username):
+    """
+    Query LDAP for user information.
+    :param username: The username.
+    :returns: A dict containing email, first_name, last_name. If user is
+        not found returns None.
+    """
+    conn = ldap.initialize(settings.LDAP_URI)
+    result = conn.search_s(settings.LDAP_DN, ldap.SCOPE_ONELEVEL,
+        '(uid=%s)' % username)
+    if len(result):
+        (dn, info) = result[0]
+        email = info['mail'][0]
+        name = info['displayName'][0].split(' ')
+        first_name = name[0]
+        last_name = ' '.join(name[1:])
+        return {
+            'email': email,
+            'first_name': first_name,
+            'last_name': last_name
+        }

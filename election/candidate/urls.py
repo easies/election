@@ -14,10 +14,10 @@ urlpatterns = patterns('election.candidate.views',
 
     url(r'^offices/$', 'office_index', name='office-index'),
     url(r'^offices/add/$', 'add_office', name='office-add'),
-    url(r'^offices/(?P<id>[0-9]+)/$', 'get_office', name='office-view'),
-    url(r'^offices/(?P<id>[0-9]+)/edit/$', 'edit_office',
+    url(r'^office/(?P<id>[0-9]+)/$', 'get_office', name='office-view'),
+    url(r'^office/(?P<id>[0-9]+)/edit/$', 'edit_office',
         name='office-edit'),
-    url(r'^offices/(?P<id>[0-9]+)/remove/$', 'remove_office',
+    url(r'^office/(?P<id>[0-9]+)/remove/$', 'remove_office',
         name='office-remove'),
 
     url(r'^$', 'index', name='index'),
@@ -25,4 +25,8 @@ urlpatterns = patterns('election.candidate.views',
 urlpatterns += patterns('election.candidate.vote_views',
     url(r'^voting/$', 'index', name='vote-index'),
     url(r'^results/$', 'results', name='vote-results'),
+)
+urlpatterns += patterns('election.candidate.json_views',
+    url(r'^json/office/(?P<id>[0-9]+)/$', 'office_get',
+        name='json-office-get'),
 )
