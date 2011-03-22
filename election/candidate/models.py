@@ -51,6 +51,8 @@ class Candidate(models.Model):
             src = self.picture.path
             dst = self.rename_image(src, self.username)
             dst_full = os.path.join(settings.MEDIA_ROOT, dst)
+            if src == dst_full:
+                return
             try:
                 os.remove(dst_full)
             except:
@@ -58,7 +60,7 @@ class Candidate(models.Model):
             dst_temp = self.rename_image(src, self.username + '-temp')
             dst_temp_full = os.path.join(settings.MEDIA_ROOT, dst_temp)
             if self.resize_pic(src, dst_temp_full, [200, 400]):
-                fd = open(dst_temp_full, 'r')
+                fd = open(dst_temp_full, 'rb')
                 self.picture.save(dst, File(fd), save=False)
                 super(Candidate, self).save(*args, **kwargs)
                 cleanup = True
