@@ -3,3 +3,6 @@ local_settings.py
 *.swp
 election_profiles
 candidate_profiles
+*.sqlite3
+.nfs*
+env
