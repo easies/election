@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title%}nuACM Elections: Candidates{% endblock %}
+
+{% block scripts %}
+<link href='{% url media "styles/election.css" %}' rel='stylesheet'
+  type='text/css'/>
+<script type="text/javascript">
+    a = function(){
+        Nifty('div#desc','big,fixed-height');
+    }
+    on_load.add(a);
+</script>
+{% endblock %}
+
+{% block content %}
+<h1 class='title'>Candidates</h1>
+<div class='node'>
+	Listed below are the current candidates for office for this election.
+	Candidates are grouped by the office they intend to run for. If a
+	candidate wishes to run for multiple offices, they will appear under each
+	office they intend to run for.
+</div>
+<div class='node'>
+	To get more information about a particular candidate, please click their
+	name to navigate to their personal profile page. If you wish to find out
+	more about a particular office, please click an office's title, or visit
+	our office's page.
+</div>
+{% if user.is_authenticated %}
+<div>
+  <p>
+    If you are interested in running for an office. Register as a candidate
+    <a href="{% url candidate-add user %}">here</a>.
+  </p>
+</div>
+{% endif %}
+
+<div id='office_info' style='left:40%;'>
+  <span id='title'></span>
+  <a id="close" href="">X</a>
+  <div id='desc'><div id='desc_in'></div></div>
+</div>
+
+<div class='node' style='width:50%;float:left;'>
+{% with offices_fall as offices %}
+  {% include "candidate/candidate-list.html" %}
+{% endwith %}
+</div>
+
+<div class='node' style='width:50%;float:right;'>
+{% with offices_spr as offices %}
+  {% include "candidate/candidate-list.html" %}
+{% endwith %}
+</div>
+
+{% if orphens %}
+<div class='node' style='clear:both;'>
+  <strong>Candidates who have not selected offices</strong>:
+  <p>
+    <ul>
+    {% for c in orphens %}
+      <li>
+        <a href='{% url candidate-view user %}'>{{ c.fullname }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </p>
+</div>
+{% endif %}
+{% endblock %}

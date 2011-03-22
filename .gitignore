@@ -1,4 +1,5 @@
-
+local_settings.py
 *.pyc
 *.swp
 election_profiles
+candidate_profiles

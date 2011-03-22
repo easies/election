@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}nuACM Elections: Offices{% endblock %}
+
+{% block css %}
+<style type="text/css">
+#offices    {  width:100%; }
+#offices th {  width:80%;  }
+#offices td {  text-align:center; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="title">Offices</h1>
+<div class="node">
+	Listed below are all the offices. You edit and delete any of the listed
+  offices by clicking the relavant links. To add a new office, click
+  <a href="{% url office-add %}">here</a>
+</div>
+<div class="node">
+  <table id="offices">
+  {% for o in offices %}
+    <tr>
+      <th><a href="{% url office-view o.pk %}">{{ o.full_title }}</a></th>
+      <th>{{ o.sort }}</th>
+      <td><a href="{% url office-edit o.pk %}">Edit</a></td>
+      <td><a href="{% url office-remove o.pk %}">Remove</a></td>
+    </tr>
+  {% endfor %}
+  </table>
+</div>
+{% endblock %}

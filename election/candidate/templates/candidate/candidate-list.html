@@ -1,0 +1,15 @@
+{% for o in offices %}
+  <div>
+    <!-- FIXME -->
+    <strong><a class='office' onclick="OfficeDesc(this,'{{o.pk}}');return false;" href=''>{{ o.full_title }}</a></strong>
+    {% if not o.candidates.all %}
+      <em>No candidates currently</em>
+    {% else %}
+      <ul>
+      {% for c in o.candidates.all %}
+        <li><a href="{% url candidate-view user %}">{{ c }}</a></li>
+      {% endfor%}
+      </ul>
+    {% endif %}
+  </div>
+{% endfor %}

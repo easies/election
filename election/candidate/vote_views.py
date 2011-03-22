@@ -1,0 +1,61 @@
+from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
+from django.contrib import messages
+from .models import Ballot
+from .forms import VoteForm
+# from .util.decorators import election_routing, canVote, isVoteAdmin
+
+
+# @election_routing('acm_election.views.index',True)
+# TODO @canVote
+def index(request):
+    user = request.user
+    if request.method == 'POST':
+        form = VoteForm(request.POST)
+        if form.is_valid():
+            form.save(user, request.META['REMOTE_ADDR'])
+            messages.info(request, 'Thank you for voting.')
+            return HttpResponseRedirect(reverse('election.candidate.views.index'))
+    else:
+        form = VoteForm()
+        wris = [form[x] for x in form.fields if 'wri' in x]
+        sels = [form[x] for x in form.fields if 'sel' in x]
+        matches = [{'sel': x, 'wri': y} for x, y in zip(sels,wris)]
+    return render_to_response('candidate/voteform.html',
+        {'pairs': matches},
+        context_instance=RequestContext(request))
+
+
+# @election_routing('acm_election.views.index', True)
+# TODO @isVoteAdmin
+def results(request):
+    total_votes = Ballot.objects.count()
+    from django.db import connection
+    cursor = connection.cursor()
+    query = """SELECT 
+                 title, semester, cast_for, count(cast_for) as votes 
+               FROM 
+                 candidate_vote, candidate_office 
+               WHERE 
+                 candidate_vote.office_id = candidate_office.id 
+               GROUP BY 
+                 candidate_vote.office_id, cast_for 
+               ORDER BY 
+                 sort, semester;"""
+    cursor.execute(query)
+    results = cursor.fetchall()
+    fall = []
+    spring = []
+    semesters = ('', 'Fall', 'Spring')
+    for r in results:
+        o, s, f, c = r
+        data = {'office': o, 'candidate': f, 'total': c}
+        if s == 1:
+            fall.append(data)
+        else:
+            spring.append(data)
+    return render_to_response('candidate/vote-results.html',
+        {'spring': spring, 'fall': fall,'total': total_votes},
+        context_instance=RequestContext(request)) 

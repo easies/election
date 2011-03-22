@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title%}nuACM Election{% endblock %}
+
+{% block content %}
+{% if form.is_multipart %}
+<form enctype="multipart/form-data" method="post" action="">
+{% else %}
+<form method="post" action="">
+{% endif %}
+  {% csrf_token %}
+  <table>
+    {% comment %}Candidate specific table row{% endcomment%}
+    {% if username %}
+    <tr>
+      <th>CCIS Username:</th>
+      <td><b style='font-size:13px'>{{ username }}</b></td>
+    </tr>
+    {% endif %}
+    {{ form }}
+  </table>
+  <input type='SUBMIT' value='Submit'/>
+</form>
+{% endblock %}
