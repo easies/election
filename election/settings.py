@@ -102,8 +102,13 @@ INSTALLED_APPS = (
     MODULE + '.candidate',
 )
 
+AUTHENTICATION_BACKENDS = (
+    MODULE + '.candidate.auth.LDAPAuthBackend',
+)
+
 LDAP_URI = 'ldap://cluster.ldap.ccs.neu.edu'
 LDAP_DN = 'ou=people,dc=ccs,dc=neu,dc=edu'
+LDAP_BIND = 'uid=%s,ou=people,dc=ccs,dc=neu,dc=edu'
 
 try:
     from local_settings import *

@@ -27,13 +27,16 @@ class Candidate(models.Model):
 
     @staticmethod
     def resize_pic(src, dst, size):
-        image = Image.open(src)
-        image.thumbnail(size, Image.ANTIALIAS)
-        image.save(dst)
-        os.chmod(dst, 0o644)
-#        except:
-            # XXX close?
-#            return False 
+        image = None
+        try:
+            image = Image.open(src)
+            image.thumbnail(size, Image.ANTIALIAS)
+            image.save(dst)
+            os.chmod(dst, 0o644)
+        except:
+            if image:
+                image.close()
+            return False
         return True
 
     @staticmethod
@@ -44,7 +47,7 @@ class Candidate(models.Model):
     def save(self, *args, **kwargs):
         super(Candidate, self).save(*args, **kwargs)
         cleanup = False
-        if not self.picture.name == '':
+        if self.picture.name:
             src = self.picture.path
             dst = self.rename_image(src, self.username)
             dst_full = os.path.join(settings.MEDIA_ROOT, dst)
