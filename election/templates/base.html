@@ -26,84 +26,49 @@
             <div class="sidebar-module">
               <div class="module-pad">
                 <nav>
-                <ul id="acm-nav">
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/home.png" alt="" /> <a href="/">Home</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/about.png" alt="" /> <a href="/about">About Us</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/news.png" alt="" /> <a href="/news">News</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/calendar.png" alt="" /> <a href="/calendar">Calendar</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/library.png" alt="" /> <a href="http://acm.ccs.neu.edu/library">Library</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/officers.png" alt="" /> <a href="{% url index %}" class="active">Election</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/video.png" alt="" /> <a href="/videos">Videos</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/officers.png" alt="" /> <a href="/officers">Officers</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="" /> <a href="/members">Members</a>
-                  </li>
-                  <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/contact.png" alt="" /> <a href="/contact">Contact Us</a>
-                  </li>
-                </ul>
+                {% include "acm-links.html" %}
                 </nav>
               </div>
             </div>
-            {% if user %}
             <div class="sidebar-module">
               <div class="module-pad">
-                <!-- FIXME duplicate ID -->
-                <ul id="acm-nav">
+                <ul class="acm-nav">
                 {% block usernav %}{% endblock %}
                 {% if user.is_authenticated %}
                   <li>
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="" />
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="">
                     <a href="{% url candidate-view user %}">{{ user }}</a>
                   </li>
-                {% if user.candidate %}
                   <li>
-                    <a class="indent" href="{% url candidate-edit user %}">Edit Your Profile</a>
+                    {% if user.candidate %}
+                      <a class="indent" href="{% url candidate-edit user %}">Edit Your Profile</a>
+                    {% else %}
+                      <a class="indent" href="{% url candidate-add user %}">Become a Candidate</a>
+                    {% endif %}
+                  </li>
+                  <li>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="">
+                    <a href="{% url logout %}">Log out</a>
                   </li>
                 {% else %}
                   <li>
-                    <a class="indent" href="{% url candidate-add user %}">Become a Candidate</a>
+                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt="">
+                    <a href="{% url login %}">Log in</a>
                   </li>
-                {% endif %}
-                  <li>
-                    <!-- FIXME -->
-                    <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt=""/> <a href="{% url logout %}">Log out</a>
-                  </li>
-                {% else %}
-                    <li>
-                      <img src="http://acm.ccs.neu.edu/themes/nuacmtheme/menu-icons/members.png" alt=""/> <a href="{% url login %}">Log in</a>
-                    </li>
                 {% endif %}
                 </ul>
               </div>
             </div>
-            {% endif %}
           </td>
           <td id="main-content">
             <div id="main">
               {% if messages %}
-              <div id="server-messages">
-                  <ul>
+              <div>
+                <ul class="messages">
                   {% for message in messages %}
-                      <li>{{ message|safe }}</li>
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                   {% endfor %}
-                  </ul>
+                </ul>
               </div>
               {% endif %}
               <!-- BEGIN DJANGO RELATED CODE -->
