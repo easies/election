@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-
-{% block title%}nuACM Authentication{% endblock %}
-
-{% block content %}
-    The page you requested requires authentication. Please Click here to continue.
-    <a href='{% url django.contrib.cas.views.login %}?next={{next}}'>click</a>
-{% endblock %}
