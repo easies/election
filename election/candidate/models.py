@@ -32,7 +32,7 @@ class Candidate(models.Model):
             image = Image.open(src)
             image.thumbnail(size, Image.ANTIALIAS)
             image.save(dst)
-            os.chmod(dst, 0o644)
+            os.chmod(dst, 0644)
         except:
             if image:
                 image.close()
@@ -71,7 +71,7 @@ class Candidate(models.Model):
     @staticmethod
     def _cleanup(f):
         try:
-            os.chmod(f, 0o777)
+            os.chmod(f, 0777)
             os.remove(f)
         except:
             pass

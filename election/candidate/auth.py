@@ -16,7 +16,7 @@ class LDAPAuthBackend(object):
             result = conn.simple_bind_s(settings.LDAP_BIND % username, password)
             # Check the result code (for 97).
             return result[0] == ldap.RES_BIND
-        except ldap.LDAPError as e:
+        except ldap.LDAPError, e:
             return False
 
     def authenticate(self, username=None, password=None):
