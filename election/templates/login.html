@@ -8,6 +8,11 @@
   Please try again.</p>
 {% endif %}
 
+<div>
+Please enter your CCIS credentials. If there are any questions or
+concerns, contact an nuACM officer.
+</div>
+
 <form method="post" action="{% url django.contrib.auth.views.login %}">
   {% csrf_token %}
   <dl id="login-form">
