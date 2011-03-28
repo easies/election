@@ -5,10 +5,9 @@
 {% block scripts %}
 <script type="text/javascript">
 $(function() {
-  Nifty('div#desc', 'big,fixed-height');
   $("a.office").click(function(e) {
     e.preventDefault();
-    office_dialog(this, this.href + "json/");
+    office_dialog(this.href + "json/");
   });
 });
 </script>
